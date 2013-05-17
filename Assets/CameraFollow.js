@@ -7,7 +7,6 @@ var minDistance : float = 3;
 var maxDistance : float = 20;
 
 function LateUpdate () {
-	Debug.Log( "The player is now at: " + target.position );
 	
 	if ( Input.GetKey( "z")){
 		Debug.Log( "distance " + zoomSpeed * Time.deltaTime );
