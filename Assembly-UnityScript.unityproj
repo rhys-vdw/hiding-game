@@ -46,6 +46,7 @@
   <ItemGroup>
      <Compile Include="Assets\CameraFollow.js" />
      <Compile Include="Assets\Enemy.js" />
+     <Compile Include="Assets\Hand.js" />
      <Compile Include="Assets\Player.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,7 +23,7 @@ private var speed : Vector3 = new Vector3( 0, 0, 0 );
 private var originalColor : Color;
 
 var hidingColor : Color = Color.black;
-var  maxHideSpeed : float = 0.5;
+var maxHideSpeed : float = 0.5;
 
 function Start () {
 	originalColor = renderer.material.color;
@@ -32,12 +32,12 @@ function Start () {
 function Update () {
 
 	var controller : CharacterController = GetComponent ("CharacterController");
-	
+
 	speed = controller.velocity;
-	
+
 	// Change speed with respect to gravity.
 	speed += Physics.gravity * Time.deltaTime;
-	
+
 	// Hold shift to run.
 	if ( Input.GetKey( "left shift" )) {
 		currentSpeed = runSpeed;
@@ -45,13 +45,13 @@ function Update () {
 	else {
 		currentSpeed = walkSpeed;
 	}
-	
-	
-	
+
+
+
 	// Move left or right if arrows are pressed.
 	speed.x = Input.GetAxis( "Horizontal") * currentSpeed;
-	
-	
+
+
 	/*
 	if ( Input.GetKey( "right" )) {
 		speed.x = currentSpeed;
@@ -60,18 +60,18 @@ function Update () {
 	} else {
 		speed.x = 0;
 	}*/
-	
+
 	if ( controller.isGrounded ){
 		// Just pressed.
 		if ( Input.GetKeyDown( "up" )){
 			renderer.material.color = chargeColor;
 		}
-		
+
 		// Held down.
 		if ( Input.GetKey( "up" )){
 			charge += chargeSpeed * Time.deltaTime;
 		}
-		
+
 		// Released.
 		if ( Input.GetKeyUp( "up" )){
 			renderer.material.color = originalColor;
@@ -79,60 +79,56 @@ function Update () {
 			charge = 0;
 		}
 	}
-	
+
 	if( isHiding == false &&
 	    currentHideyHole != null &&
 		controller.velocity.y < maxHideSpeed ) {
-		
+
 		if (Input.GetKey( "h" )){
 			Hide();
 		}
 	}
-	
+
 	if ( isHiding &&
 	     Input.GetKeyUp( "h" ) ||
 	     currentHideyHole == null ) {
 		Unhide();
 	}
-	
+
 	// Jump if up is pressed.
 	/*
 	if ( controller.isGrounded && Input.GetKeyDown( "up" )) {
 		speed.y = jumpSpeed;
 	}*/
-	
+
 	// Update character controller position.
 	if ( isHiding == true ){
 		speed = new Vector3( 0, 0, 0 );
 	}
-	
+
 	controller.Move( speed * Time.deltaTime );
-	
+
 	if (Input.GetKey ( "space" )){
 		scale += growSpeed * Time.deltaTime;
 		transform.localScale = new Vector3( scale, scale, scale );
 	}
-/*	
+/*
 	speed.y += 10;
 	myNewV3.y += 10;
 	Debug.Log( "myNewV3 = " + myNewV3 + ", speed = " + speed );
 	*/
 }
-	
+
 var currentHideyHole : GameObject;
 
 function OnTriggerEnter( other : Collider )
 {
-	Debug.Log( "OnTriggerEnter", other );
-
 	currentHideyHole = other.gameObject;
 }
 
 
 function OnTriggerExit( other : Collider )
 {
-	Debug.Log( "OnTriggerExit", other );
-
 	currentHideyHole = null;
 }
 

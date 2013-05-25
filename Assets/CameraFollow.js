@@ -8,11 +8,13 @@ var maxDistance : float = 20;
 
 function LateUpdate () {
 	
+	// Zoom in
 	if ( Input.GetKey( "z")){
 		Debug.Log( "distance " + zoomSpeed * Time.deltaTime );
 		distance += zoomSpeed * Time.deltaTime;
 	}
 	
+	// Zoom out
 	if ( Input.GetKey( "x" )){
 		distance -= zoomSpeed * Time.deltaTime;
 	}
